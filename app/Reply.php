@@ -10,7 +10,7 @@ class Reply extends Model
 
     protected $guarded = [];
 //    do jsonu
-    protected $appends = ['favoritesCount', 'isFavoritedjson', 'owner'];
+    protected $appends = ['favoritesCount', 'isFavoritedjson', 'owner', 'TimeForHuman'];
 //vztahy
     protected $with = ['user', 'favorites'];
 
@@ -21,6 +21,10 @@ class Reply extends Model
 
     public function getOwnerAttribute() {
         return $this->user;
+    }
+
+    public function getTimeForHumanAttribute() {
+        return $this->created_at->diffForHumans();
     }
 
 

@@ -21,6 +21,9 @@ window.Vue = require('vue');
 Vue.component('thread-view', require('./pages/Threat.vue'));
 Vue.component('thread', require('./components/Article.vue'));
 
+//moje
+export const eventBus = new Vue();
+
 const app = new Vue({
     el: '#app'
 });

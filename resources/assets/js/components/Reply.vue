@@ -3,8 +3,8 @@
     <div class="col-md-8">
 
         <div class="panel panel-default">
-            <div class="panel-heading" style="color: #f5ecec;background-color: #81408f; display: flex; justify-content: space-between; align-items: center ">
-                <strong v-text="data.user.name"></strong>
+            <div v-show="titleshow" class="panel-heading" style="color: #f5ecec;background-color: #81408f; display: flex; justify-content: space-between; align-items: center ">
+                <strong>#{{ data.id }} {{ data.user.name }}</strong>
                 <favorite :data="data"></favorite>
 
             </div>
@@ -21,7 +21,7 @@
 
             <div class="panel-body">
                 <p class="btn" v-show="!show" @click="show = true"> edit </p>
-                <strong class="pull-right" v-text="data.created_at"></strong>
+                <strong class="pull-right" v-text="data.TimeForHuman"></strong>
             </div>
 
         </div>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+    import { eventBus }from '../app.js';
     import Favorite from './Favorites.vue';
     export default {
         props: ['data'],
@@ -37,9 +38,18 @@
         data: function() {
             return {
                 body: this.data.body,
-                show: false
+                show: false,
+                titleshow: true
 
             }
+        },
+
+        created: function() {
+
+            eventBus.$on('displayTitle', (data)=> {
+                this.titleshow = ! this.titleshow;
+            });
+
         },
 
         methods: {
